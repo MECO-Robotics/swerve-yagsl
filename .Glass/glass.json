@@ -18,7 +18,8 @@
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/SmartDashboard/Field": "Field2d",
       "/SmartDashboard/Pigeon 2 [13]": "Gyro",
-      "/SmartDashboard/navX-Sensor[1]": "Gyro"
+      "/SmartDashboard/navX-Sensor[1]": "Gyro",
+      "/SmartDashboard/navX-Sensor[4]": "Gyro"
     }
   },
   "NetworkTables Settings": {
@@ -68,7 +69,7 @@
     "Plot <1>": {
       "plots": [
         {
-          "height": 412,
+          "height": 0,
           "series": [
             {
               "color": [
@@ -108,7 +109,7 @@
     "Plot <2>": {
       "plots": [
         {
-          "height": 389,
+          "height": 0,
           "series": [
             {
               "color": [
@@ -147,7 +148,7 @@
     "Plot <3>": {
       "plots": [
         {
-          "height": 410,
+          "height": 0,
           "series": [
             {
               "color": [
@@ -186,7 +187,7 @@
     "Plot <4>": {
       "plots": [
         {
-          "height": 393,
+          "height": 0,
           "series": [
             {
               "color": [
@@ -225,7 +226,7 @@
     "Plot <5>": {
       "plots": [
         {
-          "height": 332,
+          "height": 579,
           "series": [
             {
               "color": [

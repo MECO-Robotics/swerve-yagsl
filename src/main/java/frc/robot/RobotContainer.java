@@ -16,8 +16,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.auto.Autos;
+import frc.robot.commands.swervedrive.auto.Test;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDrive;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
+import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
@@ -57,8 +59,7 @@ public class RobotContainer
                                                           () -> MathUtil.applyDeadband(driverXbox.getLeftX(),
                                                                                        OperatorConstants.LEFT_X_DEADBAND),
                                                           () -> -driverXbox.getRightX(),
-                                                          () -> -driverXbox.getRightY(),
-                                                          false);
+                                                          () -> -driverXbox.getRightY());
 
     AbsoluteFieldDrive closedFieldAbsoluteDrive = new AbsoluteFieldDrive(drivebase,
                                                                          () ->
@@ -66,18 +67,31 @@ public class RobotContainer
                                                                                                     OperatorConstants.LEFT_Y_DEADBAND),
                                                                          () -> MathUtil.applyDeadband(driverXbox.getLeftX(),
                                                                                                       OperatorConstants.LEFT_X_DEADBAND),
-                                                                         () -> driverXbox.getRawAxis(2), false);
+                                                                         () -> driverXbox.getRawAxis(2));
+
+    AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,
+                                                                      () -> MathUtil.applyDeadband(driverXbox.getLeftY(),
+                                                                                                OperatorConstants.LEFT_Y_DEADBAND),
+                                                                      () -> MathUtil.applyDeadband(driverXbox.getLeftX(),
+                                                                                                  OperatorConstants.LEFT_X_DEADBAND),
+                                                                      () -> MathUtil.applyDeadband(driverXbox.getRightX(),
+                                                                                                  OperatorConstants.RIGHT_X_DEADBAND), 
+                                                                      driverXbox::getYButtonPressed, 
+                                                                      driverXbox::getAButtonPressed, 
+                                                                      driverXbox::getXButtonPressed, 
+                                                                      driverXbox::getBButtonPressed);
+
     TeleopDrive simClosedFieldRel = new TeleopDrive(drivebase,
                                                     () -> MathUtil.applyDeadband(driverXbox.getLeftY(),
                                                                                  OperatorConstants.LEFT_Y_DEADBAND),
                                                     () -> MathUtil.applyDeadband(driverXbox.getLeftX(),
                                                                                  OperatorConstants.LEFT_X_DEADBAND),
-                                                    () -> driverXbox.getRawAxis(2), () -> true, false, true);
+                                                    () -> driverXbox.getRawAxis(2), () -> true);
     TeleopDrive closedFieldRel = new TeleopDrive(
         drivebase,
         () -> MathUtil.applyDeadband(driverController.getY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(driverController.getX(), OperatorConstants.LEFT_X_DEADBAND),
-        () -> -driverController.getRawAxis(3), () -> true, false, true);
+        () -> -driverController.getRawAxis(3), () -> true);
 
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : closedFieldAbsoluteDrive);
   }
@@ -107,6 +121,8 @@ public class RobotContainer
   {
     // An example command will be run in autonomous
     return Autos.exampleAuto(drivebase);
+      //return new Test(drivebase);
+      
   }
 
   public void setDriveMode()

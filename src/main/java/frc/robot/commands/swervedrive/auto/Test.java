@@ -12,18 +12,16 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
  * Auto Balance command using a simple PID controller. Created by Team 3512
  * <a href="https://github.com/frc3512/Robot-2023/blob/main/src/main/java/frc3512/robot/commands/AutoBalance.java">...</a>
  */
-public class AutoBalanceCommand extends CommandBase
+public class Test extends CommandBase
 {
 
   private final SwerveSubsystem swerveSubsystem;
-  private final PIDController   controller;
+  private int Counter = 0;
 
-  public AutoBalanceCommand(SwerveSubsystem swerveSubsystem)
+  public Test(SwerveSubsystem swerveSubsystem)
   {
     this.swerveSubsystem = swerveSubsystem;
-    controller = new PIDController(1.0, 0.0, 0.0);
-    controller.setTolerance(1);
-    controller.setSetpoint(0.0);
+    
     // each subsystem used by the command must be passed into the
     // addRequirements() method (which takes a vararg of Subsystem)
     addRequirements(this.swerveSubsystem);
@@ -45,11 +43,11 @@ public class AutoBalanceCommand extends CommandBase
   @Override
   public void execute()
   {
-    SmartDashboard.putBoolean("At Tolerance", controller.atSetpoint());
+    //SmartDashboard.putBoolean("At Tolerance", controller.atSetpoint());
 
-    double translationVal = MathUtil.clamp(controller.calculate(swerveSubsystem.getPitch().getDegrees(), 0.0), -0.5,
-                                           0.5);
-    swerveSubsystem.drive(new Translation2d(translationVal, 0.0), 0.0, true);
+    
+                              
+    swerveSubsystem.drive(new Translation2d(-0.2, 0.0), 0.0, true);
   }
 
   /**
@@ -68,7 +66,15 @@ public class AutoBalanceCommand extends CommandBase
   @Override
   public boolean isFinished()
   {
-    return controller.atSetpoint();
+    Counter = Counter + 1;
+    if (Counter > 100){
+      return true;
+    }
+    else{
+      return false;
+    }
+  
+    
   }
 
   /**
